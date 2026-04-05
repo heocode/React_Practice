@@ -183,7 +183,7 @@ export default function PricingPage() {
                     <span className="text-sm text-zinc-400 dark:text-zinc-500">/{plan.period}</span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">{plan.description}</p>
+                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 min-h-[2.5rem]">{plan.description}</p>
               </div>
 
               {plan.ctaTo.startsWith('mailto') ? (
@@ -262,7 +262,7 @@ export default function PricingPage() {
                     <span className="text-sm text-zinc-400 dark:text-zinc-500">/{plan.period}</span>
                   )}
                 </div>
-                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">{plan.description}</p>
+                <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 min-h-[2.5rem]">{plan.description}</p>
               </div>
 
               {plan.ctaTo.startsWith('mailto') ? (

@@ -1,73 +1,94 @@
-# React + TypeScript + Vite
+# Reweb — Visual Website Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A landing site for **Reweb**, a visual builder for Next.js & Tailwind. Built with React 19, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Layer | Technology |
+|---|---|
+| UI framework | React 19 + TypeScript |
+| Build tool | Vite 8 |
+| Styling | Tailwind CSS v4 (`@tailwindcss/vite`) |
+| Routing | React Router v6 |
+| Auth | Firebase (Google OAuth + Email/Password) |
+| Icons | lucide-react |
 
-## React Compiler
+## Pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Route | Description |
+|---|---|
+| `/` | Landing page |
+| `/pricing` | Pricing plans |
+| `/login` | Sign-in form |
+| `/signup` | Registration form |
+| `/community` | Community page |
+| `/terms` | Terms & Conditions |
+| `*` | 404 Not Found |
 
-## Expanding the ESLint configuration
+All pages except `/login` and `/signup` render inside a shared `<Layout>` (Header + Footer).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Authentication
+- Google OAuth via Firebase popup
+- Email/password sign-in and registration
+- Persistent auth state via `onAuthStateChanged`
+- Redirect back to the originating page after login
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Dark / Light Mode
+- Toggle in the header switches `.dark` class on `<html>`
+- Persists to `localStorage`; defaults to `prefers-color-scheme`
+- All components use `dark:` Tailwind variants throughout
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Landing Page
+- **Hero section** — gradient headline, CTA buttons, tech logo strip, interactive app mockup
+- **Visual editing section** — feature list + syntax-highlighted code preview
+- **Features tabs** — clickable tab list (Visual Builder, Code Export, Templates, AI Themes) with a live preview panel
+- **Testimonials** — masonry column grid (1 → 2 → 3 columns)
+- **FAQ accordion** — expand/collapse items with animated icon
+- **CTA banner** — bottom call-to-action section
+
+### Pricing Page
+- Three plans: Free, Pro (highlighted), Enterprise
+- Mobile: horizontal snap-scroll carousel with dot navigation, centered on Pro by default
+- Desktop: 3-column CSS grid
+- "Coming soon" modal shown to already-signed-in users instead of navigating away
+
+### Header
+- Fixed with backdrop blur
+- Active-route highlighting via `NavLink`
+- Responsive: collapses to hamburger menu on mobile
+- Shows user avatar + name + logout button when signed in
+
+### Other UI
+- `ScrollToTop` button appears on scroll
+- `PageTransition` wrapper keyed on pathname for CSS fade between routes
+- `ComingSoonModal` overlay component
+
+## Commands
+
+```bash
+npm run dev       # Start dev server with HMR
+npm run build     # Type-check and build for production (tsc -b && vite build)
+npm run lint      # Run ESLint
+npm run preview   # Preview production build locally
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Environment Setup
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Copy `.env.example` → `.env` and fill in your Firebase config:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
+
+### Firebase first-time setup
+1. Go to [console.firebase.google.com](https://console.firebase.google.com) → create project
+2. **Authentication** → Sign-in methods → enable **Google** and **Email/Password**
+3. **Project settings** → Web app → copy config to `.env`
+4. Add `localhost` and your production domain to **Authorized domains**
