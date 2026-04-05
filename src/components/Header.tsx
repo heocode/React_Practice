@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Sun, Moon, LogOut, Menu, X } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useAuth } from "../contexts/AuthContext";
@@ -7,6 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 export default function Header() {
     const { theme, toggleTheme } = useTheme();
     const { user, logout } = useAuth();
+    const location = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
 
     const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -87,12 +88,14 @@ export default function Header() {
                         <div className="hidden md:flex items-center gap-1 ml-1">
                             <Link
                                 to="/login"
+                                state={{ from: location.pathname }}
                                 className="text-sm px-3 py-1.5 rounded-lg text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                             >
                                 Login
                             </Link>
                             <Link
                                 to="/signup"
+                                state={{ from: location.pathname }}
                                 className="text-sm px-4 py-1.5 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors font-medium"
                             >
                                 Sign Up
@@ -127,9 +130,10 @@ export default function Header() {
                             Logout
                         </button>
                     ) : (
-                        <div className="flex gap-2 pt-1">
+                        <div className="flex items-center gap-4 pt-1">
                             <Link
                                 to="/login"
+                                state={{ from: location.pathname }}
                                 onClick={() => setMenuOpen(false)}
                                 className="text-sm text-zinc-700 dark:text-zinc-300"
                             >
@@ -137,6 +141,7 @@ export default function Header() {
                             </Link>
                             <Link
                                 to="/signup"
+                                state={{ from: location.pathname }}
                                 onClick={() => setMenuOpen(false)}
                                 className="text-sm text-white bg-purple-500 px-4 py-1.5 rounded-lg"
                             >

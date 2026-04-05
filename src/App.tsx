@@ -10,6 +10,7 @@ import PricingPage from './pages/PricingPage'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage'
 import CommunityPage from './pages/CommunityPage'
+import NotFoundPage from './pages/NotFoundPage'
 import TermsPage from './pages/TermsPage'
 
 function Layout({ children }: { children: React.ReactNode }) {
@@ -34,6 +35,7 @@ export default function App() {
             {/* Auth pages have their own full-screen layout */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
+            <Route path="*" element={<NotFoundPage />} />
 
             {/* All other pages use the Header + Footer layout */}
             <Route

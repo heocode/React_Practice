@@ -38,6 +38,14 @@ body {
   min-height: 100svh;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @keyframes page-in {
   from {
     opacity: 0;
