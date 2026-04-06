@@ -133,7 +133,7 @@ export default function PricingPage() {
       {showModal && <ComingSoonModal onClose={() => setShowModal(false)} />}
 
       {/* Header */}
-      <section className="py-10 text-center">
+      <section className="py-4 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-medium mb-5">
             <Zap size={12} />
